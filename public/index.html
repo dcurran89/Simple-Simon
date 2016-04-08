@@ -22,22 +22,16 @@
         function getSquare() {
             var random = Math.floor(Math.random() * $divs.length);
             sequence.push(random);
-            console.log(random);
-            console.log(sequence);
         }// end of getSquare function
 
         function highlight() {
             $divs.eq(sequence[setIndex]).animate({opacity: '1.0', height: '120px', width: '120px'}, 500).animate({opacity: '0.4', height: '100px', width: '100px'}, 500);
-            console.log("highlight index: " + setIndex);
         };//end of highlight
         function userHighlight() {
             $divs.eq(sequence[colorIndex]).animate({opacity: '1.0', height: '120px', width: '120px'}, 500).animate({opacity: '0.4', height: '100px', width: '100px'}, 500);
-            console.log("userHighlight index: " + colorIndex);
         };
 
         function iterator() {
-            console.log(sequence[setIndex]);
-
             if(setIndex<sequence.length) {
                 highlight();
                 setTimeout(iterator, 1000);
@@ -54,7 +48,6 @@
             iterator();
             clickIndex++;
             $watch.html("Match the Sequence");
-            console.log("click index: " + clickIndex);
         });//end of start function
 
         //start user generated sequence
@@ -63,19 +56,10 @@
             if(boxSelect == sequence[colorIndex]) {
                 userHighlight();
                 colorIndex++;
-                console.log("sequence: " + sequence);
-                console.log("userSequence: " + userSequence);
-                console.log("userSequence = sequence");
-                console.log("colorIndex: " + colorIndex);
                 if(colorIndex == sequence.length) {
-                    console.log("Good Job! Move onto the next sequence!");
-                    // setIndex = 0;
                     colorIndex = 0; 
                 }
             } else {
-                console.log("sequence: " + sequence);
-                console.log("userSequence: " + userSequence);
-                console.log("You lose!");
                 $('#title').fadeOut().delay(3000).fadeIn();
                 $('#hidden_title').fadeIn().delay(3000).fadeOut();
                 $('#outsideBox').fadeOut().delay(3000).fadeIn();
@@ -90,12 +74,6 @@
                 $round.html("Click Start to Begin!");
             }
         });
-        //click on the highglighted square and push it into an array
-        // var $square = $('.square');
-        // $square.click(function(){
-        //     userSequence.push(indexOf($square));
-        //         console.log(userSequence);
-        // });
     });
     </script>
 </head>
