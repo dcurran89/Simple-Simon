@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Simon</title>
+    <link rel="stylesheet" type="text/css" href="/css/simpleSimon.css">
+    <script src="http://code.jquery.com/jquery-1.12.2.min.js"></script>
+    <script type="text/javascript">
+
+    $(document).ready(function(){
+        "use strict";
+        //click start button to start sequence
+        var sequence = [];
+        var userSequence = [];
+        var setIndex = 0;
+        var clickIndex = 0;
+        var colorIndex = 0;
+        var $divs = $('.square');
+        var $start = $('#start');
+        var $watch = $('#watch');
+        var $round = $('#round');
+
+        function getSquare() {
+            var random = Math.floor(Math.random() * $divs.length);
+            sequence.push(random);
+            console.log(random);
+            console.log(sequence);
+        }// end of getSquare function
+
+        function highlight() {
+            $divs.eq(sequence[setIndex]).animate({opacity: '1.0', height: '120px', width: '120px'}, 500).animate({opacity: '0.4', height: '100px', width: '100px'}, 500);
+            console.log("highlight index: " + setIndex);
+        };//end of highlight
+        function userHighlight() {
+            $divs.eq(sequence[colorIndex]).animate({opacity: '1.0', height: '120px', width: '120px'}, 500).animate({opacity: '0.4', height: '100px', width: '100px'}, 500);
+            console.log("userHighlight index: " + colorIndex);
+        };
+
+        function iterator() {
+            console.log(sequence[setIndex]);
+
+            if(setIndex<sequence.length) {
+                highlight();
+                setTimeout(iterator, 1000);
+                setIndex++;
+            } else {
+                setIndex = 0;
+            }
+        }//end or iterator
+
+        //start computer generated sequence
+        $start.click(function(){   
+            $round.html("This is round: " + (clickIndex + 1));
+            getSquare(); // run on load
+            iterator();
+            clickIndex++;
+            $watch.html("Match the Sequence");
+            console.log("click index: " + clickIndex);
+        });//end of start function
+
+        //start user generated sequence
+        $divs.click(function(){
+            var boxSelect = $(this).data("number");
+            if(boxSelect == sequence[colorIndex]) {
+                userHighlight();
+                colorIndex++;
+                console.log("sequence: " + sequence);
+                console.log("userSequence: " + userSequence);
+                console.log("userSequence = sequence");
+                console.log("colorIndex: " + colorIndex);
+                if(colorIndex == sequence.length) {
+                    console.log("Good Job! Move onto the next sequence!");
+                    // setIndex = 0;
+                    colorIndex = 0; 
+                }
+            } else {
+                console.log("sequence: " + sequence);
+                console.log("userSequence: " + userSequence);
+                console.log("You lose!");
+                $('#title').fadeOut().delay(3000).fadeIn();
+                $('#hidden_title').fadeIn().delay(3000).fadeOut();
+                $('#outsideBox').fadeOut().delay(3000).fadeIn();
+                $start.fadeOut().delay(3000).fadeIn();
+                $watch.fadeOut().delay(3000).fadeIn();
+                $round.fadeOut().delay(3000).fadeIn();
+
+                $('#secret_gif').slideDown().delay(3000).slideUp();
+                setIndex = 0;
+                clickIndex = 0;
+                sequence = [];
+                $round.html("Click Start to Begin!");
+            }
+        });
+        //click on the highglighted square and push it into an array
+        // var $square = $('.square');
+        // $square.click(function(){
+        //     userSequence.push(indexOf($square));
+        //         console.log(userSequence);
+        // });
+    });
+    </script>
+</head>
+<body>
+    
+    
+
+    <h1 id="title">SIMPLE SIMBA!</h1>
+    <h1 id="hidden_title">You Blew Up Simba You Monster!</h1>
+    <div id="secret_gif">
+            <img src="../img/simbaBoom.gif">
+    </div>
+    <div id="outsideBox" class="container">
+        <div id="topLeft" class="square" data-number="0">
+            
+        </div>
+        <div id="topRight" class="square" data-number="1">
+            
+        </div>
+        <div id="bottomLeft" class="square" data-number="2">
+            
+        </div>
+        <div id="bottomRight" class="square" data-number="3">
+            
+        </div>
+    </div><!-- end of outsideBox -->
+
+    <div id="start">
+        <button>Start</button>
+    </div>
+    <div>
+        <p id="round">Click Start to Begin!</p>
+        <p id="watch"></p>
+    </div>
+    <!-- To build this game, follow these steps:
+
+    1. Create your HTML markup and CSS to position your square or shape. These will be the colors that are randomly selected for the game.
+    2. Randomly select a square and fade that color in then out.
+    3. Allow the user to click on the square that was selected.
+    4. Continue randomly selecting colored square/shapes adding the new random selection to be added to the previous selection. Eventually you will end up with a random sequence of selected colors.
+    5. Each time a new color is added to the sequence allow the user to enter (click) the sequence in the order as it was played.
+    6. If the user continues to get the order correct then proceed to adding another color to the collection until the user gets the order incorrectly.
+    7. Keep track of how many rounds the user is able to go. -->
+
+    <!--------------------- Ben's Notes -------------------->
+    <!-- 1. click start button
+        pick a random number
+        push that button onto and array
+        light up a single button based on that number
+    2. build a function that:
+        loops through your array using setTimeout/setInterval (Not for/foreach)
+        console log the value from your array
+        (this will probably be two functions)
+    3. click start button
+        use previous function(s) to loops through the array
+        light up each button one at a time
+        getnerate a new random number
+        loop through the array again
+        you gshould light up
+        1
+        1,2
+        1,2,3 etc...
+    4. nows when you start looking at what the user clicked... -->
+</body>
+</html>
