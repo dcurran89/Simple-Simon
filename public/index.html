@@ -25,10 +25,10 @@
         }// end of getSquare function
 
         function highlight() {
-            $divs.eq(sequence[setIndex]).animate({opacity: '1.0', height: '120px', width: '120px'}, 500).animate({opacity: '0.4', height: '100px', width: '100px'}, 500);
+            $divs.eq(sequence[setIndex]).animate({opacity: '1.0', height: '200px', width: '200px'}, 500).animate({opacity: '0.4', height: '180px', width: '180px'}, 500);
         };//end of highlight
         function userHighlight() {
-            $divs.eq(sequence[colorIndex]).animate({opacity: '1.0', height: '120px', width: '120px'}, 500).animate({opacity: '0.4', height: '100px', width: '100px'}, 500);
+            $divs.eq(sequence[colorIndex]).animate({opacity: '1.0', height: '200px', width: '200px'}, 500).animate({opacity: '0.4', height: '180px', width: '180px'}, 500);
         };
 
         function iterator() {
@@ -78,14 +78,14 @@
     </script>
 </head>
 <body>
-    <h1 id="title">SIMPLE SIMBA!</h1>
+    <h1 id="title">Can You Save Simba?!</h1>
     <h1 id="hidden_title">You Blew Up Simba You Monster!</h1>
     <div id="secret_gif">
-            <img src="../img/simbaBoom.gif">
+            <img src="/img/simbaBoom.gif">
     </div>
     <div id="outsideBox" class="container">
         <div id="topLeft" class="square" data-number="0">
-            
+
         </div>
         <div id="topRight" class="square" data-number="1">
             
